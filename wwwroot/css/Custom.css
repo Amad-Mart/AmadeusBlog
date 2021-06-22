@@ -1,0 +1,8 @@
+﻿/*
+    I want the image to display without stretching or distorting too much so I change the 
+    background-size property to contain...but that means I would also like the grey background 
+    on the left and right sides to match the main color of the image...This is a css trick
+*/
+header.masthead {
+    background-size: contain;
+}

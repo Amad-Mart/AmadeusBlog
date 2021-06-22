@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AmadeusBlog</name>
+    </assembly>
+    <members>
+        <member name="M:AmadeusBlog.Controllers.API.PostsApiController.GetTopXPosts(System.Int32)">
+            <summary>
+            This method will get the most recent x number of blog posts, the summary
+            </summary>
+            <param name="num">This is the number of BlogPosts you want...</param>
+            <returns>The latest num number of BlogPosts ordered by created descending </returns>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Id">
+            <summary>
+            The Primary Key of the Post
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.BlogId">
+            <summary>
+            The Foreign key to the blog that is the parent of this Post
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Title">
+            <summary>
+            The Title of the Post
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Abstract">
+            <summary>
+            Brief intro for the post
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Content">
+            <summary>
+            The main content of the Post
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Created">
+            <summary>
+            When the post was created
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Updated">
+            <summary>
+            contains an optional data of when the post was updated
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.Slug">
+            <summary>
+            an internal field used to route to the details action
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.PublishState">
+            <summary>
+            ids the the state of the post
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.ImageData">
+            <summary>
+            Byte array that is the image
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.ContentType">
+            <summary>
+            the is the file type 
+            </summary>
+        </member>
+        <member name="P:AmadeusBlog.Models.Post.ImageFile">
+            <summary>
+            Image is not stored
+            </summary>
+        </member>
+    </members>
+</doc>

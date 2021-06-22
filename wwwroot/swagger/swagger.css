@@ -1,0 +1,20 @@
+﻿.swagger-ui .topbar {
+    padding: 10px 0;
+    background-color: orangered;
+}
+.swagger-ui .topbar .download-url-wrapper .select-label select {
+    flex: 2;
+    width: 100%;
+    border: 2px solid #62a03f;
+    outline: none;
+    box-shadow: none;
+    border-color: lightslategray;
+}
+.topbar-wrapper img {
+    content: url("/images/api.png");
+}
+.topbar-wrapper .link:after{
+    content: "<next to logo>";
+    padding-left: 50px;
+    display: block;
+}

@@ -1,0 +1,115 @@
+﻿@using AmadeusBlog.Services
+@using Microsoft.AspNetCore.Identity
+@using X.PagedList
+@using X.PagedList.Web.Common
+@using X.PagedList.Mvc.Core
+
+@inject UserManager<BlogUser> UserManager
+@inject IBlogFileService _fileService
+
+@model IPagedList<Blog>
+
+@{
+    ViewData["Title"] = "Search Results Page";
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<!-- Main Content-->
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        @foreach (var blog in Model)
+        {
+            @*
+                <div class="card-deck">
+                    <div class="card">
+                        <img class="img-fluid" src="@_fileService.DecodeImage(blog.ImageData, blog.ContentType)" width="392" />
+                        <div class="card-body">
+                            <h5 class="card-title">@blog.Name</h5>
+                            <p class="card-text">@blog.Description</p>
+                            <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@blog.Id">Read Posts</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Posted by Amadeus on @blog.Created.ToString("MMM dd, yyyy")</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+            </div>*@
+
+            <div class="post-preview">
+                <div class="row">
+                    <div class="col" id="blogImgReadCol">
+                        <div class="row">
+                            <div class="col">
+                                <img class="img-fluid" src="@_fileService.DecodeImage(blog.ImageData, blog.ContentType)" width="402" height="500"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-11">
+                                <a class="btn btn-dark btn-block btn-sm" asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@blog.Id">Read Posts</a>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-lg-4" id="blogNameDesc" >
+                        <a href="post.html">
+                            <h2 class="post-title">@blog.Name</h2>
+                            <h3 class="blog-subtitle">@blog.Description</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by Amadeus on @blog.Created.ToString("MMM dd, yyyy")
+                        </p>
+                     </div>*@
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header" id="cardTitle">@blog.Name</div>
+                        <div class="card-body">
+                            @*<h5 class="card-title">Light card title</h5>*@
+                            <p class="card-text">@blog.Description</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Posted by Amadeus on @blog.Created.ToString("MMM dd, yyyy")</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+
+        <!-- Pager
+    <div class="clearfix"><a class="btn btn-primary float-right" href="#!">Older Posts →</a></div>-->
+    </div>
+</div>
+
+<!-- page numbers-->
+<div class="row">
+    <div class="col" id="pageCounter">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-2 align-self-center" >
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }),
+                 new PagedListRenderOptions
+                 {
+                     LiElementClasses = new string[] { "page-item text-center" },
+                     PageClasses = new string[] { "page-link" }
+                 })
+    </div>
+</div>

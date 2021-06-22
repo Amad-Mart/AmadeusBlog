@@ -1,0 +1,93 @@
+﻿@using AmadeusBlog.Services
+@inject IBlogFileService _fileService
+@model IEnumerable<Post>
+
+@{ ViewData["Title"] = "Landing Page"; }
+
+<!-- Main Content-->
+<div class="row">
+    <div class="col-lg-10 col-md-10 mx-auto">
+        @{ int postCount = Model.Count();
+            if (postCount > 0)
+            {
+                @foreach (var post in Model.OrderByDescending(p => p.Created))
+                 {
+
+                    <div class="post-preview">
+                        <div class="row">
+                            <div class="col-12">
+                                <a asp-controller="Posts" 
+                                   asp-action="BlogPostIndex"
+                                   asp-route-slug="@post.Slug">
+                                    <h2 class="post-title text-center">@post.Title</h2>
+                                </a>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <img class="img-fluid"
+                                             src="@_fileService.DecodeImage(
+                                                                  post.ImageData,
+                                                                  post.ContentType)" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="post-subtitle">@post.Abstract</h6>
+                                    </div>
+                                </div>
+                                <div class="row" id="absSection">
+                                    @if (User.IsInRole("Administrator"))
+                                    {
+                                        <div class="col-6">
+                                            <a class="btn btn-dark btn-block btn-lg"
+                                               asp-controller="Posts"
+                                               asp-action="Details"
+                                               asp-route-slug="@post.Slug">Read Full Post
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a class="btn btn-dark btn-block btn-lg"
+                                               asp-controller="Posts"
+                                               asp-action="Edit"
+                                               asp-route-id="@post.Id">Edit THe post
+                                            </a>
+                                        </div>
+                                     }
+                                     else
+                                     {
+                                        <div class="col-12">
+                                            <a class="btn btn-dark btn-block btn-lg"
+                                               asp-controller="Posts"
+                                               asp-action="Details"
+                                               asp-route-slug="@post.Slug">Read Full Post</a>
+                                        </div>
+                                     }
+                                </div>
+                            </div>
+                            <div class="col-6 offset-3">
+                                <p class="post-meta text-center">
+                                    Posted by Amadeus Martinez on
+                                    @post.Created.ToString("MMM dd, yyyy")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                 }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h1>Sorry, This Blog has no posts yet</h1>
+                    </div>
+                </div>
+            }
+        }
+
+        <!-- Pager
+    <div class="clearfix"><a class="btn btn-primary float-right"
+                             href="#!">Older Posts →</a>
+    </div>-->
+    </div>
+</div>
+
